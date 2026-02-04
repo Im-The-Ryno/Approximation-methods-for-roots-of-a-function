@@ -1,0 +1,39 @@
+```Matlab
+%Newton's method
+
+function [x] = newton(f, df, x0, tol) %create newton method function
+    x = x0; % Initialize x with x0 initial guess
+    xold = x0; % Initialize xold with x0
+    k = 0;
+    while true
+        k = k + 1;
+        fx = f(x);
+        f1x = df(x);
+        xnew = x - (fx/f1x);
+        if abs(xnew - x) < tol
+            x = xnew;
+            return;
+        end
+        x = xnew;
+        % Print iteration number and iterate
+        fprintf('%3d   %.9f\n', k, xnew);
+        % Stopping criterion
+        if abs(xnew - xold) < tol
+            break;
+        end
+        xold = xnew;
+    end
+end
+
+%example usage on the same function f(x) = (1/3)sin(x)-x-(1/5)
+
+f = @(x) (1/3)*sin(x) - x - 1/5;  % define function f
+df = @(x) (1/3)*cos(x)-1; % define df as derivative of f
+df2 = @(x) (-1*1/3)*sin(x);
+tol = 1e-10;   % assign tol with tolerance
+k = 0;   %initialize variable k which tracks the number of iterations
+x0 = 0; %create first guess for x0
+
+newton(f, df, x0, tol) %run function 
+
+```
