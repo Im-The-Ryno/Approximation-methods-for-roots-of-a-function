@@ -1,0 +1,29 @@
+```Matlab
+
+% Secant Approximation Method
+% Stopping criterion: |x_k - x_{k-1}| < 1e-10
+
+function x = secant_method(f, x0, x1, tol) % create secant method function
+   k = 0;
+   while true
+       k = k + 1;  % Iterate k
+       fx0 = f(x0); %assign fx0 with f(x0) and fx1 with f(x1)
+       fx1 = f(x1);
+       xnew = x1 - ((fx1*(x1 - x0))/(fx1 - fx0)); % xnew becomes next xk
+       fprintf('%3d   %.10f\n', k, xnew); % print k and xk with up to 10 decimals
+       if abs(xnew - x1) < tol %create stopping criteria
+           x = xnew;
+           break;
+       end
+       x0 = x1; %assign new x0 and x1 values to restart the loop
+       x1 = xnew;
+   end
+end
+f = @(x) (1/3)*sin(x) - x - 1/5;  % define function f
+tol = 1e-10;   % assign tol with tolerance level
+x0 = 0;        % assign x0 with lower first estimate 0
+x1 = 1;    %assign x1 with higher first estimate 1
+secant_method(f, x0, x1, tol)
+% the program stopped after 5 iterations
+
+``` 
